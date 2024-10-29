@@ -3,7 +3,7 @@ import java.util.ArrayList;
 //An Arraylist nums is monotone increasing if for all i<=j, nums.get(i)<=nums.get(j).
 //An Arraylist nums is monotone decreasing if for all i <= j, nums.get(i) >= nums.get(j).
 //Given an integer Arraylist nums, return true if the given list is monotonic, or false otherwise.
-
+//O(n)
 public class MonotonicArrayList {
     public static boolean monoArray(ArrayList<Integer> list) {
         boolean isIncreasing = true;
