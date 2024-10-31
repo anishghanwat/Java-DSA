@@ -171,6 +171,26 @@ public class LinkedList {
         return index + 1;
     }
 
+    // Reverse of a Linked List
+    // O(n) Linear
+    public void reverse() {
+        // Initialize prev, curr, next
+        Node prev = null;
+        Node curr = tail = head;
+        Node next;
+
+        while (curr != null) {
+            next = curr.next;
+            // link curr next to prev, reverses the LL
+            curr.next = prev;
+
+            // Iterate
+            prev = curr;
+            curr = next;
+        }
+        head = prev;
+    }
+
     public static void main(String[] args) {
         LinkedList ll = new LinkedList();
         ll.print();
@@ -204,5 +224,9 @@ public class LinkedList {
 
         // Recursive Search
         System.out.println("Found by Recursive Search: " + ll.recursiveSearch(3));
+
+        // Reverse
+        ll.reverse();
+        ll.print();
     }
 }
