@@ -191,6 +191,97 @@ public class LinkedList {
         head = prev;
     }
 
+    public void deleteNthFromEnd(int n) {
+        // find size
+        int size = 0;
+        Node temp = head;
+
+        while (temp != null) {
+            temp = temp.next;
+            size++;
+        }
+
+        // remove First
+        if (n == size) {
+            head = head.next;
+            return;
+        }
+
+        // Find prev i.e Size - n
+        int i = 1;
+        int iToFind = size - n;
+        Node prev = head;
+
+        while (i < iToFind) {
+            prev = prev.next;
+            i++;
+        }
+
+        prev.next = prev.next.next;
+        return;
+    }
+
+    public Node findMid(Node head) {
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next; // +1
+            fast = fast.next.next; // +2
+        }
+        return slow; // slow is mid Node
+    }
+
+    public boolean checkPalindrome() {
+        if (head == null || head.next == null) {
+            return true;
+        }
+        // find mid node
+        Node midNode = findMid(head);
+
+        // Reverse 2nd half
+        Node prev = null;
+        Node curr = midNode;
+        Node next;
+
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+
+            prev = curr;
+            curr = next;
+        }
+        Node right = prev;
+        Node left = head;
+
+        // check 1st half == 2nd half
+        while (right != null) {
+            if (left.data != right.data) {
+                return false;
+            }
+            left = left.next;
+            right = right.next;
+        }
+        return true;
+    }
+
+    // Floyd's Cycle Finding Algorithm
+    // detecting cycle/loop in LL
+    public boolean isCycle() {
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         LinkedList ll = new LinkedList();
         ll.print();
@@ -228,5 +319,23 @@ public class LinkedList {
         // Reverse
         ll.reverse();
         ll.print();
+
+        // Remove Nth from end
+        ll.deleteNthFromEnd(2);
+        ll.print();
+
+        // Palindrome
+        ll.removeFirst();
+        ll.removeLast();
+        ll.addFirst(1);
+        ll.addLast(2);
+        ll.addLast(2);
+        ll.addLast(1);
+
+        ll.print();
+        System.out.println("is Panlindrome: " + ll.checkPalindrome());
+
+        // detecting cycle
+        System.out.println("is Cycle: " + ll.isCycle());
     }
 }
